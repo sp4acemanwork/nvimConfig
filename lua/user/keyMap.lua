@@ -27,9 +27,9 @@ keymap("n","<C-h>","<C-w>h", opts)
 keymap("n","<C-j>","<C-w>j", opts)
 keymap("n","<C-k>","<C-w>k", opts)
 keymap("n","<C-l>","<C-w>l", opts)
-
-keymap("n","<leader>e",":Lex 30<cr>", opts)
-
+-- nav files
+keymap("n","<leader>ee",":Lex 30<cr>", opts)
+keymap("n","<leader>p",":Lazy<cr>", opts)
 -- split keybinds
 keymap("n","<C-s><C-r>",":vsplit<cr>", opts)
 
@@ -53,5 +53,6 @@ keymap("i","jk","<ESC>", opts)
 
 keymap("v","<","<gv", opts)
 keymap("v",">",">gv", opts)
+
 
 
