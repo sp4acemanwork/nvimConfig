@@ -11,3 +11,10 @@ local status_ok, treekey = pcall( function ()
 if not status_ok then
   vim.notify("Error occured loading tree sitter keymaps: falure to load plugin?")
 end
+
+
+
+
+
+
+
