@@ -6,5 +6,6 @@ require "user.options"
 require "user.keyMap"
 require "user.pkmgr"
 require "user.plkeys"
+
 vim.cmd [[colorscheme habamax]]
 
