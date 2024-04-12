@@ -7,5 +7,5 @@ require "user.keyMap"
 require "user.pkmgr"
 require "user.plkeys"
 
-vim.cmd [[colorscheme habamax]]
+--vim.cmd [[colorscheme habamax]]
 
