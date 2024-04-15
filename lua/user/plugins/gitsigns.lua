@@ -4,7 +4,7 @@ return
     config = function()
       local status_ok, lualine = pcall(require('gitsigns').setup) 
       if not status_ok then
-        vim.error("Error occured loading lualine")
+        vim.error("Error occured loading gitSighns")
       end
     end
 
