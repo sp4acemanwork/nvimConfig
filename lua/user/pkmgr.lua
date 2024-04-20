@@ -21,13 +21,13 @@ opts = {
     version = nil,
     -- default `cond` you can use to globally disable a lot of plugins
     -- when running inside vscode for example
-    cond = nil, ---@type boolean|fun(self:LazyPlugin):boolean|nil
+    cond = nil, ---type boolean|fun(self:LazyPlugin):boolean|nil
     -- version = "*", -- enable this to try installing the latest stable versions of plugins
   },
   -- leave nil when passing the spec as the first argument to setup()
-  spec = nil, ---@type LazySpec
+  spec = nil, ---type LazySpec
   lockfile = vim.fn.stdpath("config") .. "/lazy-lock.json", -- lockfile generated after running update.
-  ---@type number? limit the maximum amount of concurrent tasks
+  ---type number? limit the maximum amount of concurrent tasks
   concurrency = jit.os:find("Windows") and (vim.uv.available_parallelism() * 2) or nil,
   git = {
     -- defaults for the `Lazy log` command
@@ -41,9 +41,9 @@ opts = {
     filter = true,
   },
   dev = {
-    ---@type string | fun(plugin: LazyPlugin): string directory where you store your local plugin projects
+    ---type string | fun(plugin: LazyPlugin): string directory where you store your local plugin projects
     path = "~/projects",
-    ---@type string[] plugins that match these patterns will use your local versions instead of being fetched from GitHub
+    ---type string[] plugins that match these patterns will use your local versions instead of being fetched from GitHub
     patterns = {}, -- For example {"folke"}
     fallback = false, -- Fallback to git when local plugin doesn't exist
   },
@@ -61,10 +61,10 @@ opts = {
     border = "none",
     -- The backdrop opacity. 0 is fully opaque, 100 is fully transparent.
     backdrop = 60,
-    title = nil, ---@type string only works when border is not "none"
-    title_pos = "center", ---@type "center" | "left" | "right"
+    title = nil, ---type string only works when border is not "none"
+    title_pos = "center", ---type "center" | "left" | "right"
     -- Show pills on top of the Lazy window
-    pills = true, ---@type boolean
+    pills = true, ---type boolean
     icons = {
       cmd = " ",
       config = "",
@@ -91,7 +91,7 @@ opts = {
     },
     -- leave nil, to automatically select a browser depending on your OS.
     -- If you want to use a specific browser, you can define it here
-    browser = nil, ---@type string?
+    browser = nil, ---type string?
     throttle = 20, -- how frequently should the ui process render events
     custom_keys = {
       -- You can define custom key maps here. If present, the description will
@@ -129,7 +129,7 @@ opts = {
   checker = {
     -- automatically check for plugin updates
     enabled = false,
-    concurrency = nil, ---@type number? set to 1 to check for updates very slowly
+    concurrency = nil, ---type number? set to 1 to check for updates very slowly
     notify = true, -- get a notification when new updates are found
     frequency = 3600, -- check for updates every hour
     check_pinned = false, -- check for pinned packages that can't be updated
@@ -146,9 +146,9 @@ opts = {
     reset_packpath = true, -- reset the package path to improve startup time
     rtp = {
       reset = true, -- reset the runtime path to $VIMRUNTIME and your config directory
-      ---@type string[]
+      ---type string[]
       paths = {}, -- add any custom paths here that you want to includes in the rtp
-      ---@type string[] list any plugins you want to disable here
+      ---type string[] list any plugins you want to disable here
       disabled_plugins = {
         -- "gzip",
         -- "matchit",
@@ -193,7 +193,7 @@ opts = {
 
 
 
-local status_ok, lazy = pcall(require("lazy").setup, "user.plugins",opts)
+local status_ok, lazy = pcall(require("lazy").setup, {import = "user.plugins"}, {import = "user.plugins.lsp"},opts)
 if not status_ok then
   return
 end
