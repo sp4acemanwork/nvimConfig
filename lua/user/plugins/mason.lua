@@ -3,6 +3,7 @@ return {
   dependencies = {
     "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
+    "neovim/nvim-lspconfig"
   },
   config = function()
     -- import mason
@@ -13,6 +14,7 @@ return {
 
     local mason_tool_installer = require("mason-tool-installer")
 
+    local lspconfig = require('lspconfig')
     -- enable mason and configure icons
     mason.setup({
       ui = {
@@ -31,6 +33,7 @@ return {
         "tsserver",
         "html",
         "cssls",
+        "lua_ls",
       },
     })
 
@@ -41,5 +44,12 @@ return {
         "eslint_d",
       },
     })
-  end,
+
+    lspconfig.pylsp.setup({
+      on_attach = on_attach,
+    })
+  end
+
+
+
 }

@@ -1,4 +1,4 @@
- local keymap = vim.keymap 
+local keymap = vim.keymap 
 
 local status_ok, treekey = pcall( function ()
 

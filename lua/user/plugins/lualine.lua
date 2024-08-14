@@ -42,19 +42,21 @@ return
           },
           tabline = {},
           winbar = {
- 
+
           },
           inactive_winbar = {
-    
+
           },
-          
+
           extensions = {}
         }
       )
+
       if not status_ok then
         vim.error("Error occured loading lualine")
       end
 
-    end
+    end,
+
   }
 
