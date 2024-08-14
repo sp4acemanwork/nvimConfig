@@ -34,6 +34,7 @@ return {
         "html",
         "cssls",
         "lua_ls",
+        "pylsp"
       },
     })
 
@@ -47,7 +48,11 @@ return {
 
     lspconfig.pylsp.setup({
       on_attach = on_attach,
+    })    
+    lspconfig.tsserver.setup({
+      on_attach = on_attach,
     })
+
   end
 
 
