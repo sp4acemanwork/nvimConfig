@@ -3,7 +3,8 @@ return {
   dependencies = {
     "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
-    "neovim/nvim-lspconfig"
+    "neovim/nvim-lspconfig",
+    "mfussenegger/nvim-jdtls" -- this needs spesific configureation 
   },
   config = function()
     -- import mason
@@ -30,11 +31,11 @@ return {
     mason_lspconfig.setup({
       -- list of servers for mason to install
       ensure_installed = {
-        "tsserver",
+        "tsserver", 
         "html",
         "cssls",
         "lua_ls",
-        "pylsp"
+        "pylsp",
       },
     })
 
@@ -52,7 +53,8 @@ return {
     lspconfig.tsserver.setup({
       on_attach = on_attach,
     })
-
+    -- java spesific config 
+  
   end
 
 
