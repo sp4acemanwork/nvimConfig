@@ -27,7 +27,6 @@ return {
         },
       },
     })
-
     mason_lspconfig.setup({
       -- list of servers for mason to install
       ensure_installed = {
@@ -36,6 +35,7 @@ return {
         "cssls",
         "lua_ls",
         "pylsp",
+        "bashls"
       },
     })
 
@@ -49,12 +49,19 @@ return {
 
     lspconfig.pylsp.setup({
       on_attach = on_attach,
-    })    
+    })
+
     lspconfig.tsserver.setup({
       on_attach = on_attach,
     })
+    lspconfig.bashls.setup({
+      on_attach = on_attach,
+    })
+    lspconfig.lua_ls.setup({
+      on_attach = on_attach,
+    })
     -- java spesific config 
-  
+
   end
 
 

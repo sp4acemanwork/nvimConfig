@@ -23,3 +23,5 @@ local on_attach = function(client, bufnr)
     end, bufopts)
 end
 
+
+-- java spesific
