@@ -8,7 +8,9 @@ return {
     vim.api.nvim_create_autocmd("Filetype", {
       pattern = "java", -- autocmd to start jdtls
       callback = function()
-          require("jdtls").start_or_attach(config)
+          local rootMarkers = {'gradlew', 'mvnw','.git'}
+          require("jdtls").start_or_attach(config).find_root(rootMarkers)
+
       end,
     })
   end

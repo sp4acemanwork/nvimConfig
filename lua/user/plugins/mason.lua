@@ -30,12 +30,14 @@ return {
     mason_lspconfig.setup({
       -- list of servers for mason to install
       ensure_installed = {
-        "tsserver", 
         "html",
         "cssls",
         "lua_ls",
-        "pylsp",
-        "bashls"
+        "pylsp", 
+        "bashls",
+        "ts_ls",
+        "hdl_checker"
+        
       },
     })
 
@@ -44,24 +46,38 @@ return {
         "prettier", -- prettier formatter
         "stylua", -- lua formatter
         "eslint_d",
+        "ts_ls",
+        "cssls",
+        "hdl_checker"
       },
     })
-
+    lspconfig.hdl_checker.setup({
+        on_attach=on_attach,
+    })
+    
+    lspconfig.cssls.setup({
+      on_attach = on_attach,
+    })
+    lspconfig.html.setup({
+      on_attach = on_attach,
+    })
     lspconfig.pylsp.setup({
       on_attach = on_attach,
     })
-
-    lspconfig.tsserver.setup({
-      on_attach = on_attach,
-    })
+    
+--    lspconfig.tsserver.setup({ deprecated
+  --    on_attach = on_attach,
+   -- })
     lspconfig.bashls.setup({
       on_attach = on_attach,
     })
     lspconfig.lua_ls.setup({
       on_attach = on_attach,
     })
-    -- java spesific config 
-
+    lspconfig.ts_ls.setup({
+      on_attach = on_attach,
+    })
+    -- java spesific config in ftplugin.lua 
   end
 
 
