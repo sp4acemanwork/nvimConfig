@@ -1,14 +1,10 @@
-return 
-{
+return {
   "nvim-tree/nvim-tree.lua",
-  dependencies = {
-    "nvim-tree/nvim-web-devicons"
-  },
+  dependencies = {"nvim-tree/nvim-web-devicons"},
+  -- config options for nvim tree load with said options
+  config = function() 
 
-  config = function()
-
-    local status_ok, nvimtree = pcall(require("nvim-tree").setup,
-    {
+    local status_ok, nvimtree = pcall(require("nvim-tree").setup, {
       view = {
         width = 35,
         relativenumber = true,
@@ -51,6 +47,7 @@ return
     vim.g.loaded_netrw = 1
     vim.g.loaded_netrwPlugin = 1
 
-  end
+  end,
+
 }
 

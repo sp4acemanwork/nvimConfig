@@ -51,6 +51,8 @@ return {
         "hdl_checker"
       },
     })
+
+
     lspconfig.hdl_checker.setup({
         on_attach=on_attach,
     })
@@ -64,10 +66,6 @@ return {
     lspconfig.pylsp.setup({
       on_attach = on_attach,
     })
-    
---    lspconfig.tsserver.setup({ deprecated
-  --    on_attach = on_attach,
-   -- })
     lspconfig.bashls.setup({
       on_attach = on_attach,
     })

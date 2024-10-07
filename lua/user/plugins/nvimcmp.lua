@@ -1,5 +1,4 @@
 return {
-
   "hrsh7th/nvim-cmp",
   dependencies = {
     "lspkind.nvim",
@@ -7,10 +6,11 @@ return {
     "hrsh7th/cmp-buffer", -- buffer auto-completioni
     "hrsh7th/cmp-path", -- path auto-completion
     "hrsh7th/cmp-cmdline", --cmdline auto compleition
-  },   
-    config = function() 
-      require("user.plugins.lsp.lspconfig")
-    end
+  },
+  -- config for nvimcmp
+  config = function() 
+    require("user.plugins.lsp.lspconfig")
+  end,
 
-  }
+}
 
