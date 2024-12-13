@@ -48,14 +48,12 @@ return {
         "eslint_d",
         "ts_ls",
         "cssls",
-        "hdl_checker"
+        "hdl_checker",
+        "rust_analyzer"
       },
     })
 
 
-    lspconfig.hdl_checker.setup({
-        on_attach=on_attach,
-    })
     
     lspconfig.cssls.setup({
       on_attach = on_attach,
@@ -74,6 +72,13 @@ return {
     })
     lspconfig.ts_ls.setup({
       on_attach = on_attach,
+    })
+     lspconfig.rust_analyzer.setup({
+      on_attach = on_attach,
+    })     
+    lspconfig.vhdl_ls.setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
     })
     -- java spesific config in ftplugin.lua 
   end

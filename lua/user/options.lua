@@ -48,3 +48,12 @@ vim.opt.iskeyword:append "-"                           -- hyphenated words recog
 vim.opt.formatoptions:remove({ "c", "r", "o" })        -- don't insert the current comment leader automatically for auto-wrapping comments using 'textwidth', hitting <Enter> in insert mode, or hitting 'o' or 'O' in normal mode.
 vim.opt.runtimepath:remove("/usr/share/vim/vimfiles")  -- separate vim plugins from neovim in case vim still in use
 vim.api.nvim_create_autocmd("TermOpen", { pattern = "term://*", command = "setlocal nonumber norelativenumber | setfiletype terminal" })
+vim.opt.spelllang = 'en_us'
+vim.opt.spell = true
+vim.cmd([[
+  highlight SpellBad   cterm=underline  gui=undercurl"ctermfg=203 guifg=#ff5f5f
+  highlight SpellLocal cterm=underline  gui=undercurl "ctermfg=203 guifg=#ff5f5f
+  highlight SpellRare  cterm=underline  gui=undercurl"ctermfg=203 guifg=#ff5f5f
+  highlight SpellCap  cterm=underline   gui=undercurl"ctermfg=203 guifg=#ff5f5f
+]])
+vim.api.nvim_create_autocmd("TermOpen", { pattern = "*", command = "setlocal nospell" })

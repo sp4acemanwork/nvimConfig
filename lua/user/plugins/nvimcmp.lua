@@ -9,7 +9,7 @@ return {
   },
   -- config for nvimcmp
   config = function() 
-    require("user.plugins.lsp.lspconfig")
+    require("user.plugins.lsp.lspc")
   end,
 
 }

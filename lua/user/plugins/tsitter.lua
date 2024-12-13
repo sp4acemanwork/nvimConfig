@@ -21,7 +21,8 @@ return {
         "html",
         "java",
         "bash" ,
-        "markdown",
+        "vhdl",
+        "python"
       },
 
       sync_install = false,
