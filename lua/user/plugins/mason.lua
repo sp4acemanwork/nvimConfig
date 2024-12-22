@@ -36,9 +36,13 @@ return {
         "pylsp", 
         "bashls",
         "ts_ls",
-        "hdl_checker"
-        
+        "vhdl_ls",
+        "gopls",
+
+
       },
+
+
     })
 
     mason_tool_installer.setup({
@@ -48,39 +52,20 @@ return {
         "eslint_d",
         "ts_ls",
         "cssls",
-        "hdl_checker",
-        "rust_analyzer"
+        "rust_analyzer",
+        "gopls",
       },
-    })
+      automatic_installation = true,
 
-
-    
-    lspconfig.cssls.setup({
-      on_attach = on_attach,
     })
-    lspconfig.html.setup({
-      on_attach = on_attach,
-    })
-    lspconfig.pylsp.setup({
-      on_attach = on_attach,
-    })
-    lspconfig.bashls.setup({
-      on_attach = on_attach,
-    })
-    lspconfig.lua_ls.setup({
-      on_attach = on_attach,
-    })
-    lspconfig.ts_ls.setup({
-      on_attach = on_attach,
-    })
-     lspconfig.rust_analyzer.setup({
-      on_attach = on_attach,
-    })     
-    lspconfig.vhdl_ls.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-    })
-    -- java spesific config in ftplugin.lua 
+    mason_lspconfig.setup_handlers {
+      function (server_name) -- default handler (optional)
+        require("lspconfig")[server_name].setup {
+          on_attach = on_attach,
+        }
+      end
+    }
+   -- java spesific config in ftplugin.lua ]]
   end
 
 

@@ -45,10 +45,7 @@ keymap("n","<S-l>",":bnext<cr>", opts)
 keymap("n","<S-h>",":bprevious<cr>", opts)
 -- something to try later
 keymap("i","jk","<ESC>", opts)
-
-keymap("i","jk","<ESC>", opts)
-keymap("i","jk","<ESC>", opts)
-
+keymap("t","<esc><esc>","<c-\\><c-n>", opts)
 --visual 
 
 keymap("v","<","<gv", opts)

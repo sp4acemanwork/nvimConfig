@@ -22,7 +22,9 @@ return {
         "java",
         "bash" ,
         "vhdl",
-        "python"
+        "python",
+        "go",
+        "goctl"
       },
 
       sync_install = false,
