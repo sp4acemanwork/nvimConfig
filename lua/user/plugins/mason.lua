@@ -44,7 +44,6 @@ return {
 
 
     })
-
     mason_tool_installer.setup({
       ensure_installed = {
         "prettier", -- prettier formatter
@@ -58,14 +57,28 @@ return {
       automatic_installation = true,
 
     })
+
+    local servers = {
+      pylsp = {
+        pylsp = {
+          plugins = {
+            pycodestyle = {
+              ignore = {'E501'},
+            }
+          }
+        }
+      }
+    }
+
     mason_lspconfig.setup_handlers {
       function (server_name) -- default handler (optional)
         require("lspconfig")[server_name].setup {
           on_attach = on_attach,
+          settings = servers[server_name],
         }
       end
     }
-   -- java spesific config in ftplugin.lua ]]
+    -- java spesific config in ftplugin.lua ]]
   end
 
 

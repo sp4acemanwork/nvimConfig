@@ -24,7 +24,7 @@ return {
         "vhdl",
         "python",
         "go",
-        "goctl"
+        "goctl",
       },
 
       sync_install = false,
