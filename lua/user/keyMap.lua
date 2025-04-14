@@ -4,7 +4,6 @@ local term_opts = {silent = true}
 
 --keymap abrev
 local keymap = vim.api.nvim_set_keymap
-
 -- remap space as leader key 
 keymap("","<Space>", "<Nop>" ,opts)
 vim.g.mapleader = " "
@@ -18,7 +17,6 @@ vim.g.localleader = " "
 --  term_mode = "t",
 --  command_mode = "c",
 --
-
 
 -- Normal --
 -- Better window nav
@@ -40,6 +38,14 @@ keymap("n","<C-Up>",":resize +2<CR>",opts)
 keymap("n","<C-Down>",":resize -2<CR>",opts)
 keymap("n","<C-Left>",":vertical resize -2<CR>",opts)
 keymap("n","<C-Right>",":vertical resize +2<CR>",opts)
+-- the "mac remap"
+
+keymap("n","˚",":resize +2<CR>",opts)
+keymap("n","∆",":resize -2<CR>",opts)
+keymap("n","˙",":vertical resize -2<CR>",opts)
+keymap("n","¬",":vertical resize +2<CR>",opts)
+
+
 -- Nav buffer
 keymap("n","<S-l>",":bnext<cr>", opts)
 keymap("n","<S-h>",":bprevious<cr>", opts)
