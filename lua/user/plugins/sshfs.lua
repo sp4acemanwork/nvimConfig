@@ -6,7 +6,7 @@ return {
   -- or leave empty for defaults
  },
   thing = function ()
-    local status_ok, flutter = pcall(require('telescope').load_extension 'remote-sshfs')
+    local status_ok, sshfs = pcall(require('telescope').load_extension 'remote-sshfs')
     if not status_ok then
       vim.notify("AN ERROR OCCURED WITH SSHFS")
     end

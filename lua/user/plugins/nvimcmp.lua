@@ -9,7 +9,10 @@ return {
   },
   -- config for nvimcmp
   config = function() 
-    require("user.plugins.lsp.lspc")
+    local status_ok lspcok = pcall(require("user.plugins.lsp.lspc"))
+    if not status_ok then
+      vim.notify("autocomplete is broken")
+    end
   end,
 
 }

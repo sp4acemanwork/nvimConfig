@@ -9,7 +9,10 @@ return {
       pattern = "java", -- autocmd to start jdtls
       callback = function()
         local rootMarkers = {'gradlew', 'mvnw','.git'}
-        require("jdtls").start_or_attach(config).find_root(rootMarkers)
+        local status_ok, jdtls = pcall(require("jdtls").start_or_attach(config).find_root(rootMarkers))
+        if not status_ok then
+          vim.notify("AN ERROR OCCURRED FOR JDTLS")
+        end
 
       end,
     })
