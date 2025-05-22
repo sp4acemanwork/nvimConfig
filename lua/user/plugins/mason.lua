@@ -33,7 +33,7 @@ return {
         "html",
         "cssls",
         "lua_ls",
-        "pylsp", 
+        "pylsp",
         "bashls",
         "ts_ls",
         "vhdl_ls",
@@ -78,7 +78,7 @@ return {
         }
       end
     }
-    -- java spesific config in ftplugin.lua ]]
+    -- java spesific config in ftplugin.lua 
   end
 
 

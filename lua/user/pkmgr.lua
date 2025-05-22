@@ -197,13 +197,3 @@ local status_ok, lazy = pcall(require("lazy").setup, {import = "user.plugins"}, 
 if not status_ok then
   return
 end
-
-
-
-
-
-
-
-
-
-
