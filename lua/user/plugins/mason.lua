@@ -4,7 +4,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     "neovim/nvim-lspconfig",
-    "mfussenegger/nvim-jdtls" -- this needs spesific configureation 
+    --"mfussenegger/nvim-jdtls" -- this needs spesific configureation 
   },
   config = function()
     -- import mason
@@ -38,11 +38,7 @@ return {
         "ts_ls",
         "vhdl_ls",
         "gopls",
-
-
       },
-
-
     })
     mason_tool_installer.setup({
       ensure_installed = {
@@ -69,6 +65,11 @@ return {
         }
       }
     }
+
+   local status_ok, jdtls pcall(require("user.plugins.lsp.ftplugin"))
+          if not status_ok then
+            vim.notify("an error has occured with jdtls fuck you oracle")
+          end
 
     mason_lspconfig.setup_handlers {
       function (server_name) -- default handler (optional)
