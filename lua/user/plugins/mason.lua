@@ -1,10 +1,10 @@
 return {
-  "williamboman/mason.nvim",
+  "mason-org/mason.nvim",
   dependencies = {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     "neovim/nvim-lspconfig",
-    "mfussenegger/nvim-jdtls" -- this needs spesific configureation 
+    "mfussenegger/nvim-jdtls" -- this needs specific configuration
   },
   config = function()
     -- import mason
@@ -16,8 +16,22 @@ return {
     local mason_tool_installer = require("mason-tool-installer")
 
     local lspconfig = require('lspconfig')
-    -- enable mason and configure icons
-    --
+
+    -- ====================================================================
+    -- PART 1: Simplified `on_attach` function
+    -- Since your keybinds are set elsewhere, this can be minimal.
+    -- This example just prints a confirmation message.
+    -- ====================================================================
+    local on_attach = function(client, bufnr)
+      -- You can put any buffer-specific settings here that aren't keymaps,
+      -- or leave it just like this if you only want confirmation.
+      print("LSP attached: " .. client.name .. " to buffer " .. bufnr)
+
+      -- If you truly want NOTHING to happen here, you can even make it:
+      -- local on_attach = function(client, bufnr)
+      --   -- Intentionally empty if all setup is handled by global LspAttach autocommands
+      -- end
+    end
 
     mason.setup({
       ui = {
@@ -25,61 +39,57 @@ return {
           package_installed = "✓",
           package_pending = "➜",
           package_uninstalled = "✗",
-          automatic_setup = true,
         },
       },
     })
+
     mason_lspconfig.setup({
-      -- list of servers for mason to install
       ensure_installed = {
         "html",
         "cssls",
         "lua_ls",
         "pylsp",
         "bashls",
-        "ts_ls",
+        "tsserver", -- Common for TypeScript/JavaScript
         "vhdl_ls",
         "gopls",
       },
+      handlers = {
+        -- Default handler for most servers
+        function(server_name)
+          lspconfig[server_name].setup({
+            on_attach = on_attach, -- Using the simplified on_attach
+          })
+        end,
+
+        -- Specific handler for pylsp
+        ["pylsp"] = function()
+          lspconfig.pylsp.setup({
+            on_attach = on_attach, -- Using the simplified on_attach
+            settings = {
+              pylsp = {
+                plugins = {
+                  pycodestyle = {
+                    ignore = { 'E501' },
+                    maxLineLength = 100,
+                  },
+                }
+              }
+            }
+          })
+        end
+        -- Add other specific server handlers here if needed
+      }
     })
+
     mason_tool_installer.setup({
       ensure_installed = {
-        "prettier", -- prettier formatter
-        "stylua", -- lua formatter
+        "prettier",
+        "stylua",
         "eslint_d",
-        "ts_ls",
-        "cssls",
-        "rust_analyzer",
-        "gopls",
       },
       automatic_installation = true,
-
     })
 
-    local servers = {
-      pylsp = {
-        pylsp = {
-          plugins = {
-            pycodestyle = {
-              ignore = {'E501'},
-            }
-          }
-        }
-      }
-    }
-
-
-    mason_lspconfig.setup_handlers {
-      function (server_name) -- default handler (optional)
-        require("lspconfig")[server_name].setup {
-          on_attach = on_attach,
-          settings = servers[server_name],
-        }
-      end
-    }
-    -- java spesific config in ftplugin.lua 
   end
-
-
-
 }
