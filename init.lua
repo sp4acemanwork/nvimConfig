@@ -7,6 +7,5 @@ require "user.pkmgr"
 require "user.plkeys"
 require "user.lspkeys"
 --require "user.plugins.lsp.lspconfig"
-
 --vim.cmd [[colorscheme habamax]]
 
