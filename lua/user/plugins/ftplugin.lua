@@ -1,3 +1,4 @@
+# TODO: refactor and move to use proper directories
 return {
   "mfussenegger/nvim-jdtls",
   config = function()

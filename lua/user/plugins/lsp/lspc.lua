@@ -1,3 +1,4 @@
+-- TODO: move keymap to keymap.lua
 require("vim.lsp.health").check()
 local has_words_before = function()
   unpack = unpack or table.unpack

@@ -12,10 +12,7 @@ return {
     }
   },
   config = function ()
-
   end
-
-
 }
 
 

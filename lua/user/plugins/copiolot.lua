@@ -1,5 +1,5 @@
 return {
-  "github/copilot.vim",
+--[[  "github/copilot.vim",
   config = function ()
     local status_ok, copilot = pcall(require('gitsigns').setup)
 
@@ -7,6 +7,7 @@ return {
       vim.error("Error something happened with copilot")
     end
     
-  end
+  end copilot kinda sucks
+  ]]
 }
 

@@ -19,6 +19,7 @@ return {
       })
 
     })
+
     if not status_ok then
       vim.notify("an error has occured in masonlspconfig")
     end
