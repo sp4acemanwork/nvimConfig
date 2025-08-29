@@ -8,7 +8,7 @@ return {
       callback = function()
         -- === Configuration for Remote (Docker) Projects ===
         -- This is the path to your shared projects on your LOCAL MAC
-        local HOST_PROJECTS_BASE_PATH = vim.fn.expand('~/projects') -- Adjust if needed
+        local HOST_PROJECTS_BASE_PATH = vim.fn.expand('/media/share') -- Adjust if needed
 
         -- This is the corresponding path INSIDE the Docker container
         local CONTAINER_PROJECTS_BASE_PATH = "/home/developer/projects"
