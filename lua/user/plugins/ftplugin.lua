@@ -1,19 +1,27 @@
-# TODO: refactor and move to use proper directories
 return {
   "mfussenegger/nvim-jdtls",
   config = function()
+    -- =================== REMOTE CONFIGURATION ===================
+    -- Set the parent directory on your Mac that contains all shared projects.
+    local HOST_PROJECTS_BASE_PATH = vim.fn.expand('~/vsc/cloud-comp')
+
+    -- Set the corresponding parent directory where projects are mounted/located inside the VM.
+    -- IMPORTANT: Run `pwd` in this directory inside your VM to get the correct absolute path.
+    local VM_PROJECTS_BASE_PATH = "/media/share/cloud-comp" -- <-- VERIFY THIS PATH
+    -- ==========================================================
+
     vim.api.nvim_create_autocmd("FileType", {
-      pattern = "java", -- Crucial: Only run for Java files
+      pattern = "java", -- Only run for Java files
       callback = function(args)
         local bufnr = args.buf
         local current_file_path = vim.api.nvim_buf_get_name(bufnr)
 
-        -- 1. Determine Project Root Dynamically for the current Java file
-        local root_markers = { 'gradlew', 'mvnw', '.git', 'pom.xml' } -- Common project root indicators
+        -- 1. Determine Project Root Dynamically
+        local root_markers = { 'gradlew', 'mvnw', '.git', 'pom.xml' }
         local found_project_roots = vim.fs.find(root_markers, {
           upward = true,
           path = current_file_path,
-          stop = vim.loop.os_homedir(), -- Don't go past home directory
+          stop = vim.loop.os_homedir(),
           type = "file",
         })
 
@@ -22,63 +30,45 @@ return {
           determined_root_dir = vim.fs.dirname(found_project_roots[1])
         else
           determined_root_dir = vim.fn.fnamemodify(current_file_path, ':p:h')
-          vim.notify(
-            "JDTLS: No project markers found. Using file's directory as root: " .. determined_root_dir,
-            vim.log.levels.WARN
-          )
         end
 
         if not determined_root_dir then
-          vim.notify("JDTLS: Could not determine project root for " .. current_file_path .. ". JDTLS will not start.", vim.log.levels.ERROR)
+          vim.notify("JDTLS: Could not determine project root. JDTLS will not start.", vim.log.levels.ERROR)
           return
         end
 
-        -- 2. Create a JDTLS configuration specific to this project
         local project_name = vim.fn.fnamemodify(determined_root_dir, ':t')
-        local workspace_dir = vim.fn.stdpath('data') .. "/jdtls-workspace/" .. project_name
+        local host_workspace_dir = vim.fn.stdpath('data') .. "/jdtls-workspace/" .. project_name
 
+        local final_root_dir = determined_root_dir
+        local final_workspace_dir = host_workspace_dir
+
+        -- 2. Check if the project is in the shared directory and needs path mapping
+        if determined_root_dir:find(HOST_PROJECTS_BASE_PATH, 1, true) then
+          vim.notify("JDTLS: Remote project detected. Translating paths.", vim.log.levels.INFO)
+          -- Translate the project root and workspace paths for the VM
+          final_root_dir = determined_root_dir:gsub(HOST_PROJECTS_BASE_PATH, VM_PROJECTS_BASE_PATH, 1)
+          final_workspace_dir = host_workspace_dir:gsub(vim.fn.expand('~'), '/home/debian', 1)
+        else
+          vim.notify("JDTLS: Local project detected. Using local paths.", vim.log.levels.INFO)
+        end
+
+        -- 3. Create the JDTLS configuration
         local jdtls_config = {
           cmd = {
             vim.fn.expand('~/.local/share/nvim/mason/bin/jdtls'),
             '-data',
-            workspace_dir,
+            final_workspace_dir,
           },
-          root_dir = determined_root_dir,
+          root_dir = final_root_dir,
           on_attach = function(client, attach_bufnr)
-            vim.notify("JDTLS attached to buffer: " .. attach_bufnr .. " (Project: " .. determined_root_dir .. ")", vim.log.levels.INFO)
-
-            -- Keymappings are handled elsewhere, as per your setup.
-            -- You can use this space for other JDTLS-specific initializations
-            -- that need to run when the server attaches to a buffer.
-            -- For example:
-            -- require('jdtls').setup_dap({ hotcodereplace = 'auto' }) -- If you use nvim-dap
-            -- require('jdtls.dap').setup_dap_main_class_configs() -- If using nvim-dap for main class execution
-            -- require('jdtls.setup').add_commands() -- Adds JDTLS specific commands like JdtCompile, JdtUpdateConfig, etc.
-
-            -- If you have custom UI handlers or other specific setups for nvim-jdtls:
-            -- require('jdtls.ui').setup_handlers({ client_id = client.id })
+            vim.notify("JDTLS attached to project: " .. final_root_dir, vim.log.levels.INFO)
+            -- Your on_attach logic can go here
           end,
-          -- init_options = {
-          --   bundles = {}, -- Add paths to any custom lombok.jar or other bundles if needed
-          --   extendedClientCapabilities = require('jdtls').extendedClientCapabilities -- If needed by other JDTLS features
-          -- },
-          -- capabilities = require('cmp_nvim_lsp').default_capabilities(), -- If using nvim-cmp for completion
+          -- Other settings...
         }
 
-        vim.notify("JDTLS: Attempting to start/attach for project at: " .. determined_root_dir, vim.log.levels.INFO)
-
-        -- 3. Safely start or attach JDTLS
-        local status_ok, result = pcall(require("jdtls").start_or_attach, jdtls_config)
-
-        if not status_ok then
-          vim.notify("JDTLS: FAILED to start/attach. Error: " .. tostring(result), vim.log.levels.ERROR)
-        else
-          if result then
-            vim.notify("JDTLS: start_or_attach successful. Client/Result: " .. vim.inspect(result), vim.log.levels.INFO)
-          else
-            vim.notify("JDTLS: start_or_attach called, but returned nil/false. This might be okay if already attached.", vim.log.levels.WARN)
-          end
-        end
+        require("jdtls").start_or_attach(jdtls_config)
       end,
     })
   end,
