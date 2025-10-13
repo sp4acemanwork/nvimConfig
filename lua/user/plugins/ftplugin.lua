@@ -3,7 +3,11 @@
 return {
   "mfussenegger/nvim-jdtls",
   config = function()
+    if vim.g.jdtls_autocmd_created then
+      return
+    end
     vim.api.nvim_create_autocmd("FileType", {
+
       pattern = {"java", "scala"},
       callback = function()
         local jdtls = require("jdtls")
