@@ -8,7 +8,7 @@ return {
     end
     vim.api.nvim_create_autocmd("FileType", {
 
-      pattern = {"java", "scala"},
+      pattern = {"java"},
       callback = function()
         local jdtls = require("jdtls")
 
