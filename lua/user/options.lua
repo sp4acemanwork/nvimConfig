@@ -69,3 +69,14 @@ vim.cmd([[
   highlight SpellCap  cterm=underline   gui=undercurl"ctermfg=203 guifg=#ff5f5f
 ]])
 vim.api.nvim_create_autocmd("TermOpen", { pattern = "*", command = "setlocal nospell" })
+
+-- Custom commands to temporarily disable and enable nvim-cmp
+vim.api.nvim_create_user_command('CmpDisable', function()
+  require('cmp').setup.buffer { enabled = false }
+  vim.notify("Autocompletion disabled for this buffer.")
+end, { desc = "Disable nvim-cmp for the current buffer" })
+
+vim.api.nvim_create_user_command('CmpEnable', function()
+  require('cmp').setup.buffer { enabled = true }
+  vim.notify("Autocompletion enabled for this buffer.")
+end, { desc = "Enable nvim-cmp for the current buffer" })
