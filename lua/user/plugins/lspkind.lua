@@ -1,4 +1,4 @@
 return {
-  "onsails/lspkind.nvim",
-  event = { "VimEnter" },
+	"onsails/lspkind.nvim",
+	event = { "VimEnter" },
 }
