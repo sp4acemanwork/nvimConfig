@@ -1,6 +1,6 @@
 -- lua/user/plugins/mscala.lua
-
-return {
+return {}
+--[[return {
   "scalameta/nvim-metals",
   -- Add plenary as a required dependency for nvim-metals
   dependencies = { "nvim-lua/plenary.nvim" },
@@ -35,4 +35,4 @@ return {
       group = nvim_metals_group,
     })
   end,
-}
+}]]
