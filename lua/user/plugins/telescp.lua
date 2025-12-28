@@ -1,6 +1,5 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	-- or                              ,
-	branch = "main",
+	tag = "v0.2.0",
 	dependencies = { "nvim-lua/plenary.nvim" },
 }
