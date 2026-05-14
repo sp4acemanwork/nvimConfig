@@ -1,7 +1,8 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
-	event = { "BufReadPre", "BufNewFile" },
+	lazy = false,
 	build = ":TSUpdate",
+	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		-- Protected call to avoid crashing if the plugin is missing/corrupted
 		local status_ok, configs = pcall(require, "nvim-treesitter.configs")
