@@ -186,6 +186,11 @@ opts = {
 		-- Track each new require in the Lazy profiling tab
 		require = false,
 	},
+	rocks = {
+		enabled = true,
+		hererocks = true,
+		"magick",
+	},
 }
 
 local status_ok, lazy = pcall(require("lazy").setup, "user.plugins", opts)

@@ -83,3 +83,7 @@ vim.api.nvim_create_user_command("CmpEnable", function()
 	require("cmp").setup.buffer({ enabled = true })
 	vim.notify("Autocompletion enabled for this buffer.")
 end, { desc = "Enable nvim-cmp for the current buffer" })
+
+if vim.fn.isdirectory("~/.virtualenvs/neovim/bin/python3") ~= 0 then
+	vim.g.python3_host_prog = python3_prog
+end

@@ -42,3 +42,36 @@ end)
 if not status_ok then
 	vim.notify("An Error has occured setting keymap for trouble")
 end
+
+local status_ok, moltenkeys = pcall(function()
+	keymap.set("n", "<leader>mi", ":MoltenInit<CR>", { silent = true, desc = "Initialize the plugin" })
+	keymap.set("n", "<leader>o", ":MoltenEvaluateOperator<CR>", { silent = true, desc = "run operator selection" })
+	keymap.set("n", "<leader>rl", ":MoltenEvaluateLine<CR>", { silent = true, desc = "evaluate line" })
+	keymap.set("n", "<leader>rr", ":MoltenReevaluateCell<CR>", { silent = true, desc = "re-evaluate cell" })
+	keymap.set(
+		"v",
+		"<leader>r",
+		":<C-u>MoltenEvaluateVisual<CR>gv",
+		{ silent = true, desc = "evaluate visual selection" }
+	)
+	keymap.set("n", "<leader>rd", ":MoltenDelete<CR>", { silent = true, desc = "molten delete cell" })
+	keymap.set("n", "<leader>oh", ":MoltenHideOutput<CR>", { silent = true, desc = "hide output" })
+	keymap.set("n", "<leader>os", ":noautocmd MoltenEnterOutput<CR>", { silent = true, desc = "show/enter output" })
+	keymap.set("n", "<leader>ik", ":moltenInterrupt<CR>", { desc = "interrupt kernal", silent = true })
+	keymap.set(
+		"v",
+		"<leader>r",
+		":<C-u>MoltenEvaluateVisual<CR>gv",
+		{ desc = "execute visual selection", silent = true }
+	)
+	keymap.set("n", "<leader>oh", ":MoltenHideOutput<CR>", { desc = "close output window", silent = true })
+	keymap.set("n", "<leader>md", ":MoltenDelete<CR>", { desc = "delete Molten cell", silent = true })
+
+	-- if you work with html outputs:
+	keymap.set("n", "<leader>mx", ":MoltenOpenInBrowser<CR>", { desc = "open output in browser", silent = true })
+	keymap.set("n", "<leader>e", ":MoltenEvaluateOperator<CR>", { desc = "evaluate operator", silent = true })
+	keymap.set("n", "<leader>os", ":noautocmd MoltenEnterOutput<CR>", { desc = "open output window", silent = true })
+end)
+if not status_ok then
+	vim.notify("An Error has occured setting keymap for trouble")
+end
